@@ -6,6 +6,8 @@ gem 'sqlite3'
 
 gem 'sqlite3-ruby', :require => 'sqlite3'
 
+gem 'bcrypt-ruby'
+
 group :development do
 	gem 'rspec-rails'
 	gem 'annotate'
