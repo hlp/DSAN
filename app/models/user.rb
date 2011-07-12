@@ -36,6 +36,8 @@ class User < ActiveRecord::Base
   before_save :encrypt_password
 
   # return true if the user's password matches the submitted password
+  # note that BCrypt casts the submitted_password into a 
+  # BCrypt::Password object (it's not doing a string compare)
   def has_password?(submitted_password)
     BCrypt::Password.new(self.encrypted_password) == submitted_password
   end
@@ -46,11 +48,18 @@ class User < ActiveRecord::Base
     return user if user.has_password?(submitted_password)
   end
 
+  def self.authenticate_with_salt(id, cookie_salt)
+    user = find_by_id(id)
+    (user && user.salt == cookie_salt) ? user : nil
+  end
+
   private
   
   def encrypt_password
     # unfortunately BCrypt-ruby doesn't allow you to use your own salts
-    # self.salt = make_salt if new_record?
+    # though we still make one as we use it for the cookies in 
+    # session authentication
+    self.salt = make_salt if new_record?
 
     # this has a work level of 10 by default
     # and automatically makes organic shade-grown caspian sea salt

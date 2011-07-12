@@ -10,5 +10,8 @@ def title
   end
 end
 
+def logo
+  image_tag("logo.png", :alt => "DSAN", :class => "round")
+end
 
 end

@@ -1,10 +1,13 @@
 
 .container {
-	width: 710px;
+	width: 1000px;
 }
 
 body {
-	background: #cff;
+    font-family: Palatino Linotype, Book Antiqua, Palatino, serif;
+    font-size: 12px;
+
+	background: #eee;
 }
 
 header {
@@ -77,14 +80,19 @@ div.field, div.actions {
 /* Links */
 
 a {
-	color: #09c;
+	color: #03366;
 	text-decoration: none;
 }
 
 a: hover {
-	color: #069;
+	color: #000033;
 	text-decoration: underline;
 }
+
+a: visited {
+	color: #000066;
+}
+
 
 section {
 	margin-top: 1em;
@@ -95,22 +103,6 @@ section {
 
 section h1 {
 	font-size: 200%;
-}
-
-/* Links */
-
-a {
-	color: #09c;
-	text-decoration: none;
-}
-
-a: hover {
-	color: #069;
-	text-decoration: underline;
-}
-
-a: visited {
-	color: #069;
 }
 
 /* Navigation */
@@ -141,7 +133,7 @@ nav ul li a {
 }
 
 nav ul li a:visited {
-	color: #09c;
+	color: #000066;
 }
 
 nav ul li a:hover {
