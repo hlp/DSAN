@@ -146,12 +146,12 @@ a.signup_button {
 	margin-right: auto;
 	display: block;
 	text-align: center;
-	width: 190px;
+	width: 120px;
 	color: #fff;
-	background: #006400;
-	font-size: 150%;
+	background: #663300;
+	font-size: 120%;
 	font-weight: bold;
-	padding: 20px;
+	padding: 10px;
 }
 
 /* Round corners */
@@ -166,7 +166,7 @@ a.signup_button {
 footer {
 	text-align: center;
 	margin-top: 10px;
-	width: 710px;
+	width: 333px; 
 	margin-left: auto;
 	margin-right: auto;
 }
