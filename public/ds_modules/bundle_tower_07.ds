@@ -1,0 +1,223 @@
+
+class Bow {
+    tan_botom : Vector;
+    tan_top : Vector;
+
+    public spline : BSplineCurve;
+
+    public constructor ByBottomMidTop(bottom : Point, mid : Point, top : Point, last_mid : Point, 
+                                      next_mid : Point) { 
+
+        tan_bottom = Vector.ByCoordinates(mid.X - last_mid.X, mid.Y - last_mid.Y, mid.Z - last_mid.Z, true);
+        tan_top = Vector.ByCoordinates(next_mid.X - mid.X, next_mid.Y - mid.Y, next_mid.Z - mid.Z, true);
+
+        pts = { bottom, mid, top };
+
+        spline = BSplineCurve.ByPoints(pts, tan_bottom, tan_top);
+    }
+}
+
+class ThickBow {
+    base_surface : BSplineSurface;
+    solid_extrusion : Solid;
+    public bow : Bow;
+
+    public constructor BySpline(b : Bow, base_circle : Circle, attachment_point_param : float) {
+        bow = b;
+
+        circle_tangent = base_circle.TangentAtParameter(attachment_point_param);
+
+        // extrude curve dist amount
+        // TODO: REMOVE ARBITRARY FLOATS! Make these driven by the width between two Bows
+        bow_width = 0.66;
+        bow_depth = 0.8;
+
+        base_surface = bow.spline.ExtrudeAsSurface(bow_width, circle_tangent);
+
+        up = Vector.ByCoordinates(0, 0, 1);
+        
+        out_vector = circle_tangent.Cross(up);
+
+        solid_extrusion = base_surface.Thicken(bow_depth / 2, true);
+    }
+}
+
+// The original bundle tower has a 3.2m OC gap for the widest gap between bows
+class BowRing {
+    // input 7 circles, start, mid, and end
+    // generate points around circles, and create Forks
+
+    bows_1;
+    bows_2;
+    thick_bows_1;
+    thick_bows_2;
+    bottom_points;
+    mid_points;
+    top_points;
+
+    public constructor ByCircles(circles : Circle[], index : int, num_bows : int) {
+
+        // we subtract one because one of the control points is shared between the first 
+        // and last bow
+        // however, note that we add a dupplicate point as the PointAtParameter method goes grom 0 .. 1
+        // ie it goes from the start to the end. we'll deal with this duplicate later
+        num_control_points = num_bows * 2 - 1;
+
+        bottom_points = circles[index].PointAtParameter(0..1..#num_control_points);
+        mid_points = circles[index + 3].PointAtParameter(0..1..#num_control_points);
+        top_points = circles[index + 6].PointAtParameter(0..1..#num_control_points);
+
+        num_circles = count(circles);
+
+        last_midpoints_index = index - 3;
+        dummy_last_midpoints = circles[0].PointAtParameter(0..1..#num_control_points).
+            Translate(0, 0, -10);
+
+        last_midpoints = last_midpoints_index < 0 ? dummy_last_midpoints : 
+            circles[last_midpoints_index].PointAtParameter(0..1..#num_control_points);
+
+        next_midpoints_index = index + 9;
+        dummy_next_midpoints = circles[-1].PointAtParameter(0..1..#num_control_points).
+            Translate(0, 0, 10);
+        next_midpoints = next_midpoints_index >= num_circles ? dummy_next_midpoints : 
+            circles[next_midpoints_index].PointAtParameter(0..1..#num_control_points);
+
+        bottom_top_indices = 1..(num_control_points - 2)..2;
+
+        mid_indices_1 = 0..(num_control_points - 3)..2;
+
+        mid_indices_2 = 2..(num_control_points - 1)..2;
+        
+        bows_1 = Bow.ByBottomMidTop(bottom_points[bottom_top_indices], 
+                                    mid_points[mid_indices_1], top_points[bottom_top_indices], 
+                                    last_midpoints[mid_indices_1], next_midpoints[mid_indices_1]);
+
+        bows_2 = Bow.ByBottomMidTop(bottom_points[bottom_top_indices], 
+                                    mid_points[mid_indices_2], top_points[bottom_top_indices], 
+                                    last_midpoints[mid_indices_2], next_midpoints[mid_indices_2]);
+
+        default_parameters = 0..1..#num_control_points;
+        bow_parameters = default_parameters[bottom_top_indices];
+
+        thick_bows_1 = ThickBow.BySpline(bows_1, circles[index],  bow_parameters);
+        thick_bows_2 = ThickBow.BySpline(bows_2, circles[index],  bow_parameters);
+    }
+}
+
+class Tower {
+    floor_origins;
+    circles;
+    bow_rings;
+    num_bows;
+    total_floors;
+    core;
+
+    public constructor ByPoint(cs : CoordinateSystem, p : Point, floors : int, floor_height : float, 
+                               amplitude : float, start_period : float, end_period : float, 
+                               radius : float) {
+
+        // TODO: bring this out (or make it change based on radius / height)
+        num_bows = 36;
+
+        wave = sin(start_period..end_period..#floors);
+        wave = wave * amplitude;
+
+        heights = 0..floors;
+        heights = heights * floor_height;
+
+        floor_origins = Point.ByCartesianCoordinates(cs, wave, 0, heights);
+        
+        circle_origins = floor_origins.Translate(radius, 0, 0);
+        
+        circle_offsets = floor_origins.Translate(radius * 2, 0, 0);
+
+        circle_third = circle_origins.Translate(0, radius, 0);
+
+        circles = Circle.ByPointsOnCurve(floor_origins, circle_offsets, circle_third);
+
+/*
+        // Code to extend the top and bottom straight (as it appears in the drawings
+ 
+        circles_extend_bottom = Circle.ByPointsOnCurve(floor_origins[0], circle_offsets[0],
+            circle_third[0]).Translate(0, 0, -floor_height..(-floor_height*6)..#6);
+        
+        circles_extend_top = Circle.ByPointsOnCurve(floor_origins[-1], circle_offsets[-1],
+            circle_third[-1]).Translate(0, 0, floor_height..(floor_height*6)..#6);
+
+        // the towers have a group of 6 on the top and the bottom with a vertical extrusion
+
+        circles_full = flatten({circles_extend_bottom, circles, circles_extend_top});
+
+        circles_full = circles;
+
+        //bow_rings = BowRing.ByCircles(circles_full, 0..(count(circles_full) - 2)..6, num_bows);
+
+        circles_full[0] = circles_full[0].Translate(10, 0, 0);
+*/
+
+        bow_rings = BowRing.ByCircles(circles, 0..(floors - 2)..6, num_bows);
+
+
+        // Elevator Core Code
+        // ==================
+        // TODO: BRING THIS OUT!!! Or make it driven by radius
+        core_width = 10.8;
+        // the minus 1 is due to the slight offset from the edge, perhaps replace with wall_thickness? 
+        core_depth = radius - 1;
+        
+        // remember x is the direction of the "wave"
+        base_floor_origin = floor_origins[0].Translate(radius * 2, 0, 0);
+        p1 = base_floor_origin.Translate(-1, core_width / 2, 0);
+        p2 = p1.Translate(-core_depth, 0, 0);
+        p3 = p2.Translate(0, -core_width, 0); 
+        p4 = p3.Translate(core_depth, 0, 0);
+
+        // note that the "direction" of the two lines needs to be the same or else the method fails
+        elevator_floor_surface = BSplineSurface.ByPoints({{p1, p2}, {p4, p3}});
+
+        // false b/c we don't want both sides
+        core = elevator_floor_surface.Thicken(heights[-1], false);
+    }
+}
+
+p = Point.ByCartesianCoordinates(WCS, 0, 0, 0);
+
+// units in meters
+radius = 17.5;
+amplitude = radius / 2;
+floor_height = 4.37; // from drawings
+floors = 120; // from diagrom
+
+// floors must be divisible by 6
+floors = floor(floors / 6) * 6;
+ 
+// add one for the roof...
+floors = floors + 1;
+
+start_period = -90;
+end_period = 360 + 90;
+
+origin = Point.ByCartesianCoordinates(WCS, 0.0, 0.0, 0.0);
+x_axis = Vector.ByCoordinates(1.0, 0.0, 0.0);
+z_axis = Vector.ByCoordinates(0.0, 0.0, 1.0);
+y_axis = x_axis.Cross(z_axis);
+
+cs = CoordinateSystem.ByOriginVectors(origin, x_axis, y_axis, z_axis);
+
+t = Tower.ByPoint(cs, p, floors, floor_height, amplitude, 
+                  start_period, end_period, radius);
+
+origin_2 = Point.ByCartesianCoordinates(WCS, 30.0, 0.0, 0.0);
+x_axis_2 = Vector.ByCoordinates(1.0, 1.0, 0.0).Normalize();
+z_axis_2 = Vector.ByCoordinates(0.0, 0.0, 1.0);
+y_axis_2 = x_axis.Cross(z_axis_2);
+
+cs_2 = CoordinateSystem.ByOriginVectors(origin_2, x_axis_2, y_axis_2, z_axis_2);
+
+
+/* AutoCAD can't support the geometry of more than one tower
+t_2 = Tower.ByPoint(cs_2, p, floors, floor_height, amplitude, 
+                  start_period, end_period, radius);
+*/
+
+

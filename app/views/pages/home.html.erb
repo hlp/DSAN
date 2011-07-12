@@ -1,6 +1,19 @@
-<h2>Current Modules</h2>
-<p>There aren't any module yet...</p>
 
+<% if signed_in? %>
+<table class=" front" summary="For signed-in users">
+  <tr>
+	<td class="main">
+	  <h1 class="ds_module">Current Modules</h1>
+		<%= render 'shared/all_ds_modules' %>
+	</td>
+	<td class="sidebar round">
+	  <%= render 'shared/user_info' %>
+	</td>
+  </tr>
+</table>
+<% else %>
+	<p>DSAN is invite-only at the moment. Please sign in if you have an account</p>
+	<%= link_to "Sign in", signin_path %>
+<% end %>
 
-<%= link_to "Sign up now!", signup_path, :class => "signup_button round" %>
 

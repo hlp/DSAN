@@ -32,6 +32,7 @@ GEM
     arel (2.0.10)
     bcrypt-ruby (2.1.4)
     builder (2.1.2)
+    coderay (0.9.8)
     diff-lcs (1.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
@@ -100,6 +101,7 @@ PLATFORMS
 DEPENDENCIES
   annotate
   bcrypt-ruby
+  coderay
   factory_girl_rails
   rails (= 3.0.9)
   rspec

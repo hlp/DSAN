@@ -10,7 +10,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110711000444) do
+ActiveRecord::Schema.define(:version => 20110712052408) do
+
+  create_table "ds_modules", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "version"
+    t.text     "documentation"
+    t.text     "example"
+    t.text     "files"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "name"

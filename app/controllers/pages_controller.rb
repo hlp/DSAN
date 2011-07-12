@@ -2,6 +2,7 @@ class PagesController < ApplicationController
 
   def home
     @title = "Home"
+    @ds_module = DsModule.new if signed_in?
   end
 
   def contact

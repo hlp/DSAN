@@ -138,4 +138,29 @@ describe User do
     end # end authentication method tests
 
   end
+
+  describe "module associations" do
+    before(:each) do
+      @user = User.create(@attr)
+      @m1 = Factory(:ds_module, :user => @user, :created_at => 1.day.ago)
+      @m2 = Factory(:ds_module, :user => @user, :created_at => 1.hour.ago)
+    end
+
+    it "should have a module attribute" do
+      @user.should respond_to(:ds_modules)
+    end
+
+    it "should have the right modules in the right order" do
+      @user.ds_modules.should == [@m2, @m1]
+    end
+
+    it "should destroy associated microposts" do
+      @user.destroy
+      [@m1, @m2].each do |ds_module|
+        DsModule.find_by_id(ds_module.id).should be_nil
+      end
+    end
+
+  end # module associations
+
 end

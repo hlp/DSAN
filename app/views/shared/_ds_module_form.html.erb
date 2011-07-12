@@ -1,0 +1,26 @@
+<%= form_for @ds_module do |f| %>
+	<%= render 'shared/error_messages', :object => f.object %>
+	<div class="field">
+		<%= f.label :name %>
+		<%= f.text_field :name %>
+	</div>
+	<div class="field">
+		<%= f.label :version %>
+		<%= f.text_field :version %>
+	</div>
+	<div class="field">
+		<%= f.label :documentation %>
+		<%= f.text_area :documentation %>
+	</div>
+	<div class="field">
+		<%= f.label :example %>
+		<%= f.text_area :example %>
+	</div>
+	<div class="field">
+		<%= f.label :files %>
+		<%= f.text_field :files %>
+	</div>
+	<div class="actions">
+		<%= f.submit "Submit" %>
+	</div>
+<% end %>

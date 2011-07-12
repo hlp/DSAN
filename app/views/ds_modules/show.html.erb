@@ -1,0 +1,7 @@
+<h2><%= @ds_module.name %></h2>
+<em>Version: <%= @ds_module.version %></em><br /><br />
+<strong>Documentation</strong><br />
+<%= @ds_module.documentation %><br /><br />
+<strong>Example</strong>
+<%= coderay(@ds_module.example).html_safe %><br />
+

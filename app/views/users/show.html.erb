@@ -6,10 +6,16 @@
 		<%= image_for @user %>
 		<%= @user.name %>
 	  </h1>
+
+	<% unless @user.ds_modules.empty? %>
+		<table class="ds_modules" summary="User modules">
+		<%= render @ds_modules %>
+		</table>
+	<% end %>
 	</td>
 	<td class="sidebar round">
 	  <strong>Name</strong> <%= @user.name %><br />
-	  <strong>URL</strong> <%= link_to user_url(@user), @user %>
+	  <strong>Modules</strong> <%= @user.ds_modules.count %>
 	</td>
   </tr>
 </table>

@@ -14,4 +14,12 @@ def logo
   image_tag("logo.png", :alt => "DSAN", :class => "round")
 end
 
+def coderay(text)
+  CodeRay.scan(text, :java).div(:css => :class)
+end
+
+def read_module(filename)
+  IO.read(::Rails.root.to_s + '/public/ds_modules/' + filename)
+end
+
 end

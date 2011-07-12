@@ -2,6 +2,9 @@ Dsan::Application.routes.draw do
 
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
+  resources :ds_modules
+
+  match '/create_module', :to => 'ds_modules#new'
 
   match '/signup', :to => 'users#new'
   match '/signin', :to => 'sessions#new'

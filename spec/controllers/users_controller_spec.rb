@@ -7,6 +7,13 @@ describe UsersController do
 
     before(:each) do
       @user = Factory(:user)
+      @module_attr = {
+        :name => "Test Module",
+        :version => "1.0",
+        :documentation => "It works",
+        :example => "1 + 1 = 2",
+        :files => "bundle_tower_07.ds"
+      }
     end
 
     it "should be successful" do
@@ -32,6 +39,14 @@ describe UsersController do
     it "should have a profile image" do
       get :show, :id => @user
       response.should have_selector("h1>img", :class => "profile_image")
+    end
+
+    it "should show the user's ds modules" do
+      m1 = Factory(:ds_module, :user => @user, :name => "Module 1")
+      m2 = Factory(:ds_module, :user => @user, :name => "Module 2")
+      get :show, :id => @user
+      response.should have_selector("span.content", :content => m1.name)
+      response.should have_selector("span.content", :content => m2.name)
     end
 
   end
