@@ -12,6 +12,8 @@ gem 'coderay'
 
 gem 'paperclip'
 
+gem 'bluecloth'
+
 group :development do
 	gem 'rspec-rails'
 	gem 'annotate'

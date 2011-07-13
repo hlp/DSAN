@@ -26,4 +26,9 @@ end
 #  IO.read(::Rails.root.to_s + '/public/ds_modules/' + filename)
 #end
 
+def markdown(text)
+  BlueCloth::new(text).to_html
+end
+
+
 end

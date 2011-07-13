@@ -12,7 +12,7 @@
 <strong>Download</strong><br />
 <%= link_to "Link", @ds_module.ds_attachment.url %><br /><br />
 <strong>Documentation</strong><br />
-<%= @ds_module.documentation %><br /><br />
+<%= sanitize(markdown(@ds_module.documentation)) %><br /><br />
 <strong>Example</strong>
 <%= coderay(@ds_module.example).html_safe %><br /><br />
 <% if @ds_module.attachment_is_ds_file? %>
