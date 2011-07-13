@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110712052408) do
+ActiveRecord::Schema.define(:version => 20110712211017) do
 
   create_table "ds_modules", :force => true do |t|
     t.integer  "user_id"
@@ -21,6 +21,10 @@ ActiveRecord::Schema.define(:version => 20110712052408) do
     t.text     "files"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "ds_attachment_file_name"
+    t.string   "ds_attachment_content_type"
+    t.integer  "ds_attachment_file_size"
+    t.datetime "ds_attachment_updated_at"
   end
 
   create_table "users", :force => true do |t|

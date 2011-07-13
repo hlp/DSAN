@@ -3,11 +3,13 @@
 <table class=" front" summary="For signed-in users">
   <tr>
 	<td class="main">
-	  <h1 class="ds_module">Current Modules</h1>
+	  <h1 class="ds_module">Latest Modules</h1>
 		<%= render 'shared/all_ds_modules' %>
 	</td>
 	<td class="sidebar round">
-	  <%= render 'shared/user_info' %>
+	  <% User.all.each do |user| %>
+	  <%= render 'shared/user_info', :displayed_user => user %><br />
+	  <% end %>
 	</td>
   </tr>
 </table>

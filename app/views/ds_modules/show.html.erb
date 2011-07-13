@@ -1,7 +1,22 @@
-<h2><%= @ds_module.name %></h2>
+
+
+<table>
+<tr><td><h2><%= @ds_module.name %></h2></td>
+<% if @ds_module.user == current_user %>
+<td><em><%= link_to "edit", edit_ds_module_path(@ds_module) %></td>
+<% end %>
+</tr>
+</table>
+
 <em>Version: <%= @ds_module.version %></em><br /><br />
+<strong>Download</strong><br />
+<%= link_to "Link", @ds_module.ds_attachment.url %><br /><br />
 <strong>Documentation</strong><br />
 <%= @ds_module.documentation %><br /><br />
 <strong>Example</strong>
-<%= coderay(@ds_module.example).html_safe %><br />
+<%= coderay(@ds_module.example).html_safe %><br /><br />
+<% if @ds_module.attachment_is_ds_file? %>
+	<strong>Code</strong>
+	<%= coderay(read_module(@ds_module.ds_attachment.path)).html_safe %>
+<% end %>
 

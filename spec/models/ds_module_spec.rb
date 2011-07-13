@@ -2,15 +2,19 @@
 #
 # Table name: ds_modules
 #
-#  id            :integer         not null, primary key
-#  user_id       :integer
-#  name          :string(255)
-#  version       :string(255)
-#  documentation :text
-#  example       :text
-#  files         :text
-#  created_at    :datetime
-#  updated_at    :datetime
+#  id                         :integer         not null, primary key
+#  user_id                    :integer
+#  name                       :string(255)
+#  version                    :string(255)
+#  documentation              :text
+#  example                    :text
+#  files                      :text
+#  created_at                 :datetime
+#  updated_at                 :datetime
+#  ds_attachment_file_name    :string(255)
+#  ds_attachment_content_type :string(255)
+#  ds_attachment_file_size    :integer
+#  ds_attachment_updated_at   :datetime
 #
 
 require 'spec_helper'

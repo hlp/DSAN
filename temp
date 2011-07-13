@@ -42,3 +42,10 @@ int main (int argc, char** argv) {
 
 
 <%= render 'shared/ds_module_form' %>
+
+
+
+<%= coderay(read_module(@ds_module.ds_attachment.path)).html_safe %>
+
+
+<%= render 'shared/ds_module_form' %>

@@ -1,4 +1,5 @@
-<%= form_for @ds_module do |f| %>
+
+<% form_for @ds_module, :html => { :multipart => true } do |f| %>
 	<%= render 'shared/error_messages', :object => f.object %>
 	<div class="field">
 		<%= f.label :name %>
@@ -9,16 +10,16 @@
 		<%= f.text_field :version %>
 	</div>
 	<div class="field">
-		<%= f.label :documentation %>
+		<%= f.label :documentation %><br />
 		<%= f.text_area :documentation %>
 	</div>
 	<div class="field">
-		<%= f.label :example %>
+		<%= f.label :example %><br />
 		<%= f.text_area :example %>
 	</div>
 	<div class="field">
-		<%= f.label :files %>
-		<%= f.text_field :files %>
+		<%= f.label :DesignScript_file_or_zip %>
+		<%= f.file_field :ds_attachment %>
 	</div>
 	<div class="actions">
 		<%= f.submit "Submit" %>

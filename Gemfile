@@ -10,6 +10,8 @@ gem 'bcrypt-ruby'
 
 gem 'coderay'
 
+gem 'paperclip'
+
 group :development do
 	gem 'rspec-rails'
 	gem 'annotate'

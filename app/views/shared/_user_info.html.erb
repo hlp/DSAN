@@ -1,13 +1,15 @@
+
 <div class="user_info" >
-  <a href="<%= user_path(current_user) %>">
-	<%= image_for(current_user, 30) %>
+  <a href="<%= user_path(displayed_user) %>">
+	<%= image_for(displayed_user, 30) %>
 	<span class="user_name" >
-	  <%= current_user.name %>
+	  <%= displayed_user.name %>
 	</span>
 	<span class="ds_modules">
-	  <%= pluralize(current_user.ds_modules.count, "DesignScript Module") %>
+	  <%= pluralize(displayed_user.ds_modules.count, "DesignScript Module") %>
 	</span>
   </a>
 </div>
+
 
 

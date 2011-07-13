@@ -1,6 +1,7 @@
 
 class DsModulesController < ApplicationController
   before_filter :authenticate
+  before_filter :correct_user, :only => [:edit, :update]
 
   def index
     @title = "All modules"
@@ -23,10 +24,33 @@ class DsModulesController < ApplicationController
       flash[:success] = "Module created!"
       redirect_to @ds_module
     else
-      render 'pages/home'
+      render 'new'
+    end
+  end
+
+  def edit
+    @title = "Edit module"
+  end
+
+  def update
+    @ds_module = DsModule.find(params[:id])
+    if @ds_module.update_attributes(params[:ds_module])
+      flash[:success] = "Module updated."
+      redirect_to @ds_module
+    else
+      @title = "Edit module"
+      render 'edit'
     end
   end
 
   def destroy
   end
+
+  private 
+
+  def correct_user
+    @ds_module = DsModule.find(params[:id])
+    redirect_to(root_path) unless current_user?(@ds_module.user)
+  end
+
 end
