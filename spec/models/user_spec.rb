@@ -9,6 +9,7 @@
 #  updated_at         :datetime
 #  encrypted_password :string(255)
 #  salt               :string(255)
+#  access_code        :string(255)
 #
 
 require 'spec_helper'

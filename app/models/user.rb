@@ -9,6 +9,7 @@
 #  updated_at         :datetime
 #  encrypted_password :string(255)
 #  salt               :string(255)
+#  access_code        :string(255)
 #
 
 require 'bcrypt'
@@ -17,7 +18,7 @@ class User < ActiveRecord::Base
   include BCrypt;
 
   attr_accessor :password
-  attr_accessible :name, :email, :password, :password_confirmation
+  attr_accessible :name, :email, :password, :password_confirmation, :access_code
 
   has_many :ds_modules, :dependent => :destroy
 
@@ -34,6 +35,8 @@ class User < ActiveRecord::Base
   validates :password, :presence => true,
                        :confirmation => true,
                        :length => { :within => 6..40 }
+
+  validate :has_valid_code, :on => :create
 
   before_save :encrypt_password
 
@@ -87,6 +90,18 @@ class User < ActiveRecord::Base
     @user.password = random_password
     @user.save!
     Mailer.create_and_deliver_password_change(@user, random_password)
+  end
+
+  def has_valid_code
+    creation_key = Creationkey.find_by_key(self.access_code)
+
+    unless creation_key
+      errors.add("Access code", "is invalid.")
+      return false
+    end
+
+    creation_key.destroy
+    return true
   end
 
 end
