@@ -11,7 +11,7 @@
 <em>Version: <%= @ds_module.version %></em><br /><br />
 <strong>Download</strong><br />
 <%= link_to "Link", @ds_module.ds_attachment.url %><br /><br />
-<strong>Documentation</strong><br />
+<strong>Description</strong><br />
 <%= sanitize(markdown(Sanitize.clean(@ds_module.documentation))) %><br /><br />
 <strong>Example</strong>
 <%= coderay(@ds_module.example).html_safe %><br /><br />
