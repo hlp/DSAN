@@ -14,6 +14,8 @@ gem 'paperclip'
 
 gem 'bluecloth'
 
+gem 'sanitize'
+
 group :development do
 	gem 'rspec-rails'
 	gem 'annotate'
