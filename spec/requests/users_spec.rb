@@ -19,6 +19,10 @@ describe "Users" do
         end.should_not change(User, :count)
       end
 
+    end # failure
+
+    describe "success" do
+
       it "should make a new user" do
         lambda do
           Factory(:creationkey)
@@ -35,7 +39,8 @@ describe "Users" do
         end.should change(User, :count).by(1)
       end
 
-    end # end describe failures
+    end # end describe success
+
   end # end describe sign up
 
   describe "sign in/out" do
