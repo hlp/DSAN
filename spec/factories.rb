@@ -1,9 +1,16 @@
+
+Factory.define :creationkey do |creationkey|
+  creationkey.key "acode"
+end
+
 # By using the symbol ':user', we get Factory Girl to simulate the User model.
 Factory.define :user do |user|
   user.name "Michael Hartl"
   user.email "mhartl@example.com"
   user.password "foobar"
   user.password_confirmation "foobar"
+  @access_keys = [] 
+  @access_keys.push(Factory(:creationkey))
   user.access_code "acode"
 end
 
@@ -17,6 +24,3 @@ Factory.define :ds_module do |ds_module|
   ds_module.association :user
 end
 
-Factory.define :creationkey do |creationkey|
-  creationkey.key "acode"
-end

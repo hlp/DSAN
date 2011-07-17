@@ -22,7 +22,6 @@ require 'spec_helper'
 describe DsModule do
   
   before(:each) do
-    @key = Factory(:creationkey)
     @user = Factory(:user)
     @attr = {
       :name => "Test Module",

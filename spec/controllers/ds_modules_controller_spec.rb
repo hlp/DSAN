@@ -25,15 +25,15 @@ describe DsModulesController do
         @user = test_sign_in(Factory(:user))
       end
 
-      it "should not create a micropost" do
+      it "should not create a module" do
         lambda do
           post :create, :ds_module => @attr
         end.should_not change(DsModule, :count)
       end
 
-      it "should rendder the home page" do
+      it "should render the 'new' page" do
         post :create, :ds_module => @attr
-        response.should render_template('pages/home')
+        response.should render_template('new')
       end
 
     end # describe failure
@@ -47,19 +47,19 @@ describe DsModulesController do
           :version => "1.0",
           :documentation => "It works",
           :example => "1 + 1 = 2",
-          :files => "bundle_tower_07.ds"
+          :ds_attachment => File.new(Rails.root + 'spec/fixtures/scripts/hello.ds')
         }
       end
 
-      it "should create a micropost" do
+      it "should create a module" do
         lambda do
           post :create, :ds_module => @attr
         end.should change(DsModule, :count).by(1)
       end
 
-      it "should redirect to the home page" do
+      it "should redirect to the module page" do
         post :create, :ds_module => @attr
-        response.should redirect_to(root_path)
+        response.should redirect_to(ds_module_path(assigns(:ds_module)))
       end
       
       it "should have a flash message" do

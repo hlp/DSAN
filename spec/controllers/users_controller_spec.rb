@@ -158,8 +158,11 @@ describe UsersController do
 
     describe "success" do
       before(:each) do
+        Factory(:ds_module)
         @attr = { :name => "New User", :email => "user@example.com",
-          :password => "foobar", :password_confirmation => "foobar" }
+          :password => "foobar", :password_confirmation => "foobar",
+          :access_code => "acode",
+          :ds_attachment => File.new(Rails.root + 'spec/fixtures/scripts/hello.ds') }
       end
 
       it "should create a user" do

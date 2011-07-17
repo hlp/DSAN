@@ -21,11 +21,13 @@ describe "Users" do
 
       it "should make a new user" do
         lambda do
+          Factory(:creationkey)
           visit signup_path
           fill_in "Name", :with => "Example User"
           fill_in "Email", :with => "user@example.com"
           fill_in "Password", :with => "foobar"
           fill_in "Confirmation", :with => "foobar"
+          fill_in "Access code", :with => "acode"
           click_button
           response.should have_selector("div.flash.success",
                                         :content => "Welcome")
