@@ -1,22 +1,24 @@
 
-
+<div class="module_display">
 <table>
-<tr><td><h2><%= @ds_module.name %></h2></td>
+<tr><td><h1 class="module_name"><%= @ds_module.name %></h1></td>
 <% if @ds_module.user == current_user %>
 <td><em><%= link_to "edit", edit_ds_module_path(@ds_module) %></td>
 <% end %>
 </tr>
 </table>
 
+
 <em>Version: <%= @ds_module.version %></em><br /><br />
-<strong>Download</strong><br />
-<%= link_to "Link", @ds_module.ds_attachment.url %><br /><br />
-<strong>Description</strong><br />
-<%= sanitize(markdown(Sanitize.clean(@ds_module.documentation))) %><br /><br />
-<strong>Example</strong>
+<h1><%= link_to "Download", @ds_module.ds_attachment.url %></h1><br /><br />
+<h1>Description</h1>
+<%= sanitize(markdown(Sanitize.clean(@ds_module.documentation))) %><br />
+<h1>Example</h1>
 <%= coderay(@ds_module.example).html_safe %><br /><br />
 <% if @ds_module.attachment_is_ds_file? %>
-	<strong>Code</strong>
+	<h1>Code</h1>
 	<%= coderay(read_module(@ds_module.ds_attachment.path)).html_safe %>
 <% end %>
 
+
+</div>

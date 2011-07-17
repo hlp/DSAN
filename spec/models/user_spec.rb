@@ -17,11 +17,14 @@ require 'spec_helper'
 describe User do
 
   before (:each) do
+    @key = Factory(:creationkey)
+
     @attr = { 
       :name => "Example User", 
       :email => "user@example.com",
       :password => "foobar",
-      :password_confirmation => "foobar" 
+      :password_confirmation => "foobar", 
+      :access_code => "acode"
     }
   end
 
@@ -48,6 +51,7 @@ describe User do
   it "should accept valid email addresses" do
     addresses = %w[user@foo.com THE_USER@foo.bar.org first.last@foo.jp]
     addresses.each do |address|
+      new_key = Factory(:creationkey) # users delete keys on creation
       valid_email_user = User.new(@attr.merge(:email => address))
       valid_email_user.should be_valid
     end
@@ -142,6 +146,7 @@ describe User do
 
   describe "module associations" do
     before(:each) do
+      @key = Factory(:creationkey)
       @user = User.create(@attr)
       @m1 = Factory(:ds_module, :user => @user, :created_at => 1.day.ago)
       @m2 = Factory(:ds_module, :user => @user, :created_at => 1.hour.ago)

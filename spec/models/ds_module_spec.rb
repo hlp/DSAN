@@ -22,13 +22,15 @@ require 'spec_helper'
 describe DsModule do
   
   before(:each) do
+    @key = Factory(:creationkey)
     @user = Factory(:user)
     @attr = {
       :name => "Test Module",
       :version => "1.0",
       :documentation => "It works",
       :example => "1 + 1 = 2",
-      :files => "bundle_tower_07.ds"
+      :files => "bundle_tower_07.ds",
+      :ds_attachment => File.new(Rails.root + 'spec/fixtures/scripts/hello.ds')
     }
   end
 
@@ -63,14 +65,17 @@ describe DsModule do
       @user.ds_modules.build(:name => "a" * 144).should_not be_valid
     end
 
-    it "should require a nonblank version"
+    it "should require a nonblank version" do
+      @user.ds_modules.build(:version => " ").should_not be_valid
+    end
 
-    it "should require a nonblank documentation"
+    it "should require a nonblank documentation" do
+      @user.ds_modules.build(:documentation => " ").should_not be_valid
+    end
 
-    it "should require a nonblank example"
-
-    it "should require a nonblank file name"
-
+    it "should require a nonblank example" do
+      @user.ds_modules.build(:example => " ").should_not be_valid
+    end
 
   end # validotions
 

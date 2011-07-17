@@ -4,6 +4,7 @@ Factory.define :user do |user|
   user.email "mhartl@example.com"
   user.password "foobar"
   user.password_confirmation "foobar"
+  user.access_code "acode"
 end
 
 Factory.define :ds_module do |ds_module|
@@ -12,5 +13,10 @@ Factory.define :ds_module do |ds_module|
   ds_module.documentation "It works."
   ds_module.example "1 + 1 = 2"
   ds_module.files "bundle_tower_07.ds"
+  ds_module.ds_attachment File.new(Rails.root + 'spec/fixtures/scripts/hello.ds')
   ds_module.association :user
+end
+
+Factory.define :creationkey do |creationkey|
+  creationkey.key "acode"
 end

@@ -1,8 +1,42 @@
-<h1>Help</h1>
-<p>A few quick notes:</p>
-<ul><li>You can only upload one file at a time at the moment. If you have several files or a .dll library in addition to the file, zip the contents and upload the zip.</li>
-<li>The documentation field accepts text in the <a href="http://en.wikipedia.org/wiki/Markdown">Markdown</a> format. Use markdown links, images, and lists to create links, images, and lists. All html is stripped out.</li>
-</ul>
+<h1>Posting Guidelines</h1>
+<br /><br />
+<h2>Description</h2>
+<p>DSAN requires all uploaded modules have sufficient documentation and an example. 
+For a quick example of what might be expected, look at some of the examples on 
+<a href="http://processing.org/reference/">Processing.org's reference page</a>. 
+Ideally, each module should have a high level description of the motivations behand the 
+module, a description of the module's syntax (all the public methods), and a description
+of the module's parameters (the values passed into the module).<br /><br />
 
-<p>More coming soon. In the meantime, contact the individuals on the contact page.</p>
+These sections are no means required, though highly encouraged.<br /><br />
+
+The documentation field accepts text in the <a href="http://en.wikipedia.org/wiki/Markdown">Markdown</a>
+format, and all html is stripped out for security purposes. Here is an example of how one
+might structure the various sections of their documentation (in this case 
+<%= link_to "A tunnel by Studio Gang", ds_module_path(DsModule.find_by_id(3)) %>) using Markdown:</p>
+
+<%= coderay("Creates a tunnel similar to one made by Studio Gang in Lincoln Park.
+
+Syntax
+======
+`ByLines(lines, index, num_bows)`
+
+Parameters
+==========
+`lines : Line[]` -- A list of all lines used to create the tunnel
+
+`index : int` -- A list of indices, indicating which lines to place bows on.
+
+`num_bows : int` -- Number of bow shapes to create on input lines").html_safe %>
+
+In this example, underlines ( <code>======</code> ) create section headings, while
+backticks ( <code>`...`</code> ) indicate code segments.<br /><br />
+
+
+<h2>File Upload</h2>
+<p>You can only upload one file at a time at the moment. If you have several files or a .dll library in 
+addition to the file, zip the contents and upload the zip. DSAN should soon be able to parse through
+your scripts to find embedded documentation.</p> <br /><br />
+
+<p>For more information, contact the individuals on the contact page.</p>
 

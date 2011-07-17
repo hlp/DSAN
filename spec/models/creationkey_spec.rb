@@ -11,5 +11,16 @@
 require 'spec_helper'
 
 describe Creationkey do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  it "should create a new instance given no attributes" do
+    Creationkey.create!()
+  end
+
+  it "should create a correct instance given a key" do
+    code = "acode"
+    specific_key = Creationkey.create( :key => code )
+    specific_key.key.should == code
+  end
+
+
 end
