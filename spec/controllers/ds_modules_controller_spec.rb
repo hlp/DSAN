@@ -47,6 +47,7 @@ describe DsModulesController do
           :version => "1.0",
           :documentation => "It works",
           :example => "1 + 1 = 2",
+          :category => "Library",
           :ds_attachment => File.new(Rails.root + 'spec/fixtures/scripts/hello.ds')
         }
       end

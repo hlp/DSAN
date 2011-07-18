@@ -10,6 +10,7 @@
 
 
 <em>Version: <%= @ds_module.version %></em><br /><br />
+<em><%= @ds_module.get_categories.count > 1 ? "Categories:" : "Category:"  %> <%= @ds_module.category %></em><br /><br />
 <h1><%= link_to "Download", @ds_module.ds_attachment.url %></h1><br /><br />
 <h1>Description</h1>
 <%= sanitize(markdown(Sanitize.clean(@ds_module.documentation))) %><br />

@@ -15,6 +15,7 @@
 #  ds_attachment_content_type :string(255)
 #  ds_attachment_file_size    :integer
 #  ds_attachment_updated_at   :datetime
+#  category                   :string(255)
 #
 
 require 'spec_helper'
@@ -29,6 +30,7 @@ describe DsModule do
       :documentation => "It works",
       :example => "1 + 1 = 2",
       :files => "bundle_tower_07.ds",
+      :category => "Library",
       :ds_attachment => File.new(Rails.root + 'spec/fixtures/scripts/hello.ds')
     }
   end
@@ -52,29 +54,55 @@ describe DsModule do
 
   describe "validations" do
 
+    before(:each) do
+      @attr = {
+        :name => "Test Module",
+        :version => "1.0",
+        :documentation => "It works",
+        :example => "1 + 1 = 2",
+        :files => "bundle_tower_07.ds",
+        :category => "Library",
+        :ds_attachment => File.new(Rails.root + 'spec/fixtures/scripts/hello.ds')
+      }
+    end
+
     it "should require a user id" do
       DsModule.new(@attr).should_not be_valid
     end
 
     it "should require a nonblank name" do
-      @user.ds_modules.build(:name => " ").should_not be_valid
+      @user.ds_modules.build(@attr.merge(:name => " ")).should_not be_valid
     end
 
     it "should reject long content" do
-      @user.ds_modules.build(:name => "a" * 144).should_not be_valid
+      @user.ds_modules.build(@attr.merge(:name => "a" * 144)).should_not be_valid
     end
 
     it "should require a nonblank version" do
-      @user.ds_modules.build(:version => " ").should_not be_valid
+      @user.ds_modules.build(@attr.merge(:version => " ")).should_not be_valid
     end
 
     it "should require a nonblank documentation" do
-      @user.ds_modules.build(:documentation => " ").should_not be_valid
+      @user.ds_modules.build(@attr.merge(:documentation => " ")).should_not be_valid
     end
 
     it "should require a nonblank example" do
-      @user.ds_modules.build(:example => " ").should_not be_valid
+      @user.ds_modules.build(@attr.merge(:example => " ")).should_not be_valid
     end
+
+    it "should reject long categories" do
+      @user.ds_modules.build(@attr.merge(:category => "a" * 250)).should_not be_valid
+    end
+
+    it "should accept a blank category on Examples" do
+      puts
+      @user.ds_modules.build(@attr.merge(:category => "Example")).should be_valid
+    end
+
+    it "should require a nonblank category" do
+      @user.ds_modules.build(@attr.merge(:category => " ")).should_not be_valid
+    end
+
 
   end # validotions
 

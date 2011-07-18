@@ -18,6 +18,11 @@
 		<%= f.text_area :example %>
 	</div>
 	<div class="field">
+		<%= f.label "Category[ies]" %>
+		<%= f.text_field :category %>
+	</div>
+	<p><em>Separate with commas (e.g. Example, Library, Architecture, Engineering, Environmental)</em></p> 
+	<div class="field">
 		<%= f.label :DesignScript_file_or_zip %>
 		<%= f.file_field :ds_attachment %>
 	</div>

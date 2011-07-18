@@ -1,4 +1,4 @@
 rake db:migrate
 rake db:migrate RAILS_ENV=production
 #This is sometimes needed
-#rake db:test:prepare
+rake db:test:prepare
