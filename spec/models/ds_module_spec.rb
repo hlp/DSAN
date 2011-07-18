@@ -36,13 +36,23 @@ describe DsModule do
   end
 
   it "should create a new instance given valid attributes" do
-    @user.ds_modules.create!(@attr)
+    @ds_module = @user.ds_modules.create!(@attr)
+    @ds_module.setup.should be_true
+  end
+
+  it "should create ModuleFiles based on an uploaded zip" do
+    lambda do
+      @ds_module = @user.ds_modules.create!(@attr.merge(
+        :ds_attachment => File.new(Rails.root + 'spec/fixtures/zips/foobar.zip')))
+      @ds_module.setup
+    end.should change(ModuleFile, :count).by(3)
   end
 
   describe "user associations" do
     
     before(:each) do
       @ds_module = @user.ds_modules.create(@attr)
+      @ds_module.setup
     end
 
     it "should have the right associated user" do

@@ -21,6 +21,7 @@ class DsModulesController < ApplicationController
   def create
     @ds_module = current_user.ds_modules.build(params[:ds_module])
     if @ds_module.save
+      @ds_module.setup
       flash[:success] = "Module created!"
       redirect_to @ds_module
     else
@@ -35,6 +36,7 @@ class DsModulesController < ApplicationController
   def update
     @ds_module = DsModule.find(params[:id])
     if @ds_module.update_attributes(params[:ds_module])
+      @ds_module.setup
       flash[:success] = "Module updated."
       redirect_to @ds_module
     else

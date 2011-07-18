@@ -18,8 +18,13 @@
 #  category                   :string(255)
 #
 
+
+# N.B. You MUST call "setup" after creating this object
+
 class DsModule < ActiveRecord::Base
   attr_accessible :name, :version, :documentation, :example, :category, :files, :ds_attachment
+
+  has_many :module_files, :dependent => :destroy
 
   has_attached_file :ds_attachment
 
@@ -36,8 +41,17 @@ class DsModule < ActiveRecord::Base
   validates_attachment_presence :ds_attachment
 
   validate :has_valid_example
+  
+  # I can't do this because parent must be saved before I 
+  # save child objects
+  #validate :parse_attachment
 
   default_scope :order => 'ds_modules.created_at DESC'
+
+  # this calls the methods that can only be calle after the object has been created
+  def setup
+    parse_attachment
+  end
 
   def has_valid_example
     if is_example?
@@ -52,8 +66,37 @@ class DsModule < ActiveRecord::Base
     return false
   end
 
+  def parse_attachment
+    if attachment_is_ds_file?
+      module_files.create(:path => ds_attachment.path)
+      return true
+    end
+
+    unless attachment_is_zip?
+      return false
+    end
+
+    new_dir = File.dirname(ds_attachment.path) + "/" + get_unique_directory
+
+    # -j flag flattens zip so only the files get unzipped (not the dir structure)
+    `unzip -j #{ds_attachment.path} -d #{new_dir}`
+
+    files = `ls #{new_dir}`.chomp().split("\n")
+
+    files.each do |file|
+      full_path = new_dir + "/" + file      
+      self.module_files.create(:path => full_path)
+    end
+
+    return true
+  end
+
   def attachment_is_ds_file?
     File.extname(ds_attachment.path) == ".ds"
+  end
+
+  def attachment_is_zip?
+    File.extname(ds_attachment.path) == ".zip"
   end
 
   def get_categories
@@ -72,6 +115,56 @@ class DsModule < ActiveRecord::Base
 
   def is_library?
     (category =~ /library/i) != nil
+  end
+
+  def get_images
+    images = []
+    module_files.each do |file|
+      if file.is_image?
+        images.push(file)
+      end
+    end
+    return images
+  end
+
+  def get_images_markdown
+    images = get_images
+    str = "";
+
+    images.each do |image|
+      desc = image.base
+      path = image.path.gsub(Rails.root.to_s + "/public", "")
+      str += "\n![#{desc}](#{path})"
+    end
+
+    return str
+  end
+
+  def get_scripts
+    scripts = []
+    module_files.each do |file|
+      if file.is_script?
+        scripts.push(file)
+      end
+    end
+    return scripts
+  end
+
+  def get_scripts_web_path
+    scripts = get_scripts
+    scripts_web_path = []
+    
+    scripts.each do |script|
+      scripts_web_path.push(script.path.gsub(Rails.root.to_s + "/public", ""))
+    end
+    
+    return scripts_web_path
+  end
+
+  private
+
+  def get_unique_directory
+    ('a'..'z').to_a.shuffle[0...10].join
   end
 
 end

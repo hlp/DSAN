@@ -49,3 +49,9 @@ int main (int argc, char** argv) {
 
 
 <%= render 'shared/ds_module_form' %>
+
+
+
+
+
+    <%= coderay(@ds_module.get_images_markdown).html_safe %>

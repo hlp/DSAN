@@ -16,9 +16,12 @@
 <%= sanitize(markdown(Sanitize.clean(@ds_module.documentation))) %><br />
 <h1>Example</h1>
 <%= coderay(@ds_module.example).html_safe %><br /><br />
-<% if @ds_module.attachment_is_ds_file? %>
+<% if @ds_module.get_scripts.count > 0 %>
 	<h1>Code</h1>
-	<%= coderay(read_module(@ds_module.ds_attachment.path)).html_safe %>
+    <% @ds_module.get_scripts.each do |script| %>
+	    <h2><%= File.basename(script.path) %></h2>
+        <%= coderay(read_module(script.path)).html_safe %>
+    <% end %>
 <% end %>
 
 
