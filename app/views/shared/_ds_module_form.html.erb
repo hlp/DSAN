@@ -1,7 +1,4 @@
 
-
-
-
 <%= form_for @ds_module, :html => { :multipart => true } do |f| %>
 	<%= render 'shared/error_messages', :object => f.object %>
 	<div class="field">
@@ -21,7 +18,8 @@
         <%= coderay(@ds_module.get_images_markdown).html_safe %>
     <% end %>	
 	<div class="field">
-		<%= f.label :example %><br />
+		<%= f.label :example %>
+		<em><p class="form-instructons">If your module is not an example, please include one here</p></em>
 		<%= f.text_area :example %>
 	</div>
 	<div class="field">
