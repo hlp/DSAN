@@ -1,20 +1,19 @@
 
 <% if signed_in? %>
 
-<table class="categories" summary="categories">
-  <tr>
-
-	<td> Examples </td>
-	<td> Libraries </td>
-	<td> C++ Plugins </td>
-	<td> Architecture </td>
-  </tr>
-</table>
 <table class="front" summary="For signed-in users">
    <tr>
 	<td class="main">
 	  <h1 class="ds_module">Latest Modules</h1>
 		<%= render 'shared/all_ds_modules' %>
+	</td>
+	<td class="sidebar">
+	<h1 class="categories">Categories</h1>
+	<% Tag.all.each do |tag| %>
+	  <div class="category_link">
+		<%= link_to(tag.name, '#' + tag.name, :class => "category_link") %>
+	  </div>
+	<% end %>
 	</td>
   </tr>
 </table>

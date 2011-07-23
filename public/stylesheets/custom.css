@@ -234,6 +234,15 @@ table.categories {
 	margin-bottom: -10px;
 }
 
+h1.categories {
+	font-size: 120%;
+}
+
+div.category_link {
+	margin-top: 13px;
+	margin-bottom: 13px;
+}
+
 /* User show page */
 
 table.profile {
@@ -250,7 +259,7 @@ td.sidebar {
 	width: 30%;
 	padding: 1em;
 	vertical-align: top;
-	background: #ffc;
+	/*background: #ffc;*/
 }
 
 .profile img.gravatar {
@@ -305,6 +314,8 @@ ul.users {
 .CodeRay .sy { color:#6C9CBD }                      /* symbol */
 .CodeRay .ta { color:#E7BE69 }                      /* html tag */
 .CodeRay .pc { color:#6C9CBD }                      /* boolean */
+
+
 
 
 /* Module stuff */
@@ -368,6 +379,7 @@ div.user_info a {
 
 div.user_info span.user_name {
 	position: absolute;
+	margin-top: -4px;
 }
 
 div.user_info span.ds_modules {
