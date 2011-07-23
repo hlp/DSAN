@@ -1,4 +1,7 @@
 
+
+
+
 <%= form_for @ds_module, :html => { :multipart => true } do |f| %>
 	<%= render 'shared/error_messages', :object => f.object %>
 	<div class="field">
@@ -21,13 +24,13 @@
 		<%= f.label :example %><br />
 		<%= f.text_area :example %>
 	</div>
-	
 	<div class="field">
+	<%= f.label :Categories %> <br />
 	<%= f.select(:tag_list, Tag.all.collect { |t| t.name },
-		options = {},
-		html_options = { :multiple => true, :title => "Categories", :class => "chzn-select"  } ) %>
+		options = { :selected => @ds_module.tag_list },
+		html_options = { :multiple => true, :title => "Choose categories...", :class => "chzn-select",
+		:style => "width:450px"  } ) %>
 	</div>
-	<p><em>(e.g. Example, Library, Architecture, Engineering, Environmental)</em></p> 
 	<div class="field">
 		<%= f.label :DesignScript_file_or_zip %>
 		<%= f.file_field :ds_attachment %>
@@ -36,3 +39,11 @@
 		<%= f.submit "Submit" %>
 	</div>
 <% end %>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
+
+<%= javascript_include_tag "chosen/chosen.jquery" %>
+
+<script type="text/javascript"> $(".chzn-select").chosen(); </script>
+
+
