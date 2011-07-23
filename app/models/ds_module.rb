@@ -29,6 +29,8 @@ class DsModule < ActiveRecord::Base
 
   has_attached_file :ds_attachment
 
+  acts_as_taggable
+
   belongs_to :user
 
   validates :name, :presence => true, :length => { :maximum => 140 }

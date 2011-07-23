@@ -16,6 +16,8 @@ gem 'bluecloth'
 
 gem 'sanitize'
 
+gem 'acts_as_taggable_on_steroids'
+
 group :development do
 	gem 'rspec-rails'
 	gem 'annotate'
