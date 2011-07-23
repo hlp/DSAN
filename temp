@@ -74,3 +74,12 @@ int main (int argc, char** argv) {
 		</li>
 	<% end %>
 </ul> 
+
+
+Tag.all.collect { |t| t.name }, 
+
+ { :selected => @ds_module.tag_list }, 
+<%= f.label :Category %><br />
+
+
+<em><%= @ds_module.get_categories.count > 1 ? "Categories:" : "Category:"  %> <%= @ds_module.category %></em><br /><br />

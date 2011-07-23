@@ -23,7 +23,7 @@
 # N.B. You MUST call "setup" after creating this object
 
 class DsModule < ActiveRecord::Base
-  attr_accessible :name, :version, :documentation, :example, :category, :files, :ds_attachment, :ds_attachment_last_updated_at
+  attr_accessible :name, :version, :documentation, :example, :category, :files, :ds_attachment, :ds_attachment_last_updated_at, :tag_list
 
   has_many :module_files, :dependent => :destroy
 
@@ -37,8 +37,10 @@ class DsModule < ActiveRecord::Base
   validates :user_id, :presence => true
   validates :version, :presence => true, :length => { :maximum => 140 }
   validates :documentation, :presence => true
-  # validates :example, :presence => true
-  validates :category, :presence => true, :length => { :maximum => 200 }
+  # the requirement for an example should be chosen based on Category (tag)
+  #validates :example, :presence => true
+  # category is now :tag_list
+  #validates :category, :presence => true, :length => { :maximum => 200 }
 
   #validates :files, :presence => true
   validates_attachment_presence :ds_attachment
