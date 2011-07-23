@@ -18,8 +18,8 @@
         <%= coderay(@ds_module.get_images_markdown).html_safe %>
     <% end %>	
 	<div class="field">
-		<%= f.label :example %>
-		<em><p class="form-instructons">If your module is not an example, please include one here</p></em>
+		<%= f.label :example %><br />
+		<em class="form-instructons">If your module is not an example, please include one here</em><br />
 		<%= f.text_area :example %>
 	</div>
 	<div class="field">

@@ -83,8 +83,8 @@ div.field, div.actions {
 	margin-bottom: 10px;
 }
 
-span.form-instructions {
-	font-size: 75%;
+.form-instructions {
+	font-size: 70%;
 }
 
 .field_with_errors {
