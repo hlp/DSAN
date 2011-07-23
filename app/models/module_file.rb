@@ -2,11 +2,12 @@
 #
 # Table name: module_files
 #
-#  id         :integer         not null, primary key
-#  file_type  :string(255)
-#  path       :string(255)
-#  created_at :datetime
-#  updated_at :datetime
+#  id           :integer         not null, primary key
+#  file_type    :string(255)
+#  path         :string(255)
+#  created_at   :datetime
+#  updated_at   :datetime
+#  ds_module_id :integer
 #
 
 class ModuleFile < ActiveRecord::Base

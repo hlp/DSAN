@@ -49,7 +49,7 @@ describe UsersController do
       response.should have_selector("span.content", :content => m2.name)
     end
 
-  end
+  end # GET show
 
   describe "GET 'new'" do
     it "should be successful" do
@@ -96,11 +96,12 @@ describe UsersController do
 
     end # non signed in users
 
-
+    
     describe "for signed-in users" do
 
       before(:each) do
-        @user = test_sign_in(Factory(:user))
+        @user = Factory(:user)
+        test_sign_in(@user)
         second = Factory(:user, :email => "another@example.com")
         third = Factory(:user, :email => "another@example.net")
 
@@ -109,13 +110,14 @@ describe UsersController do
 
       it "should be successful" do
         get :index
-        response.should be_success
+        response.should be_success        
       end
 
       it "should have the right title" do
         get :index
-        response.should have_selector("title", :content => "All users")
+        response.should have_selector("title", :content => "All users")        
       end
+
 
       it "should have an element for each user" do
         get :index
@@ -125,6 +127,7 @@ describe UsersController do
       end
 
     end # signed in users
+    
 
   end # GET index
 

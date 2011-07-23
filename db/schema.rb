@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110718121659) do
+ActiveRecord::Schema.define(:version => 20110718132758) do
 
   create_table "creationkeys", :force => true do |t|
     t.string   "key"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(:version => 20110718121659) do
     t.integer  "ds_attachment_file_size"
     t.datetime "ds_attachment_updated_at"
     t.string   "category"
+    t.datetime "ds_attachment_last_updated_at"
   end
 
   create_table "module_files", :force => true do |t|

@@ -2,27 +2,28 @@
 #
 # Table name: ds_modules
 #
-#  id                         :integer         not null, primary key
-#  user_id                    :integer
-#  name                       :string(255)
-#  version                    :string(255)
-#  documentation              :text
-#  example                    :text
-#  files                      :text
-#  created_at                 :datetime
-#  updated_at                 :datetime
-#  ds_attachment_file_name    :string(255)
-#  ds_attachment_content_type :string(255)
-#  ds_attachment_file_size    :integer
-#  ds_attachment_updated_at   :datetime
-#  category                   :string(255)
+#  id                            :integer         not null, primary key
+#  user_id                       :integer
+#  name                          :string(255)
+#  version                       :string(255)
+#  documentation                 :text
+#  example                       :text
+#  files                         :text
+#  created_at                    :datetime
+#  updated_at                    :datetime
+#  ds_attachment_file_name       :string(255)
+#  ds_attachment_content_type    :string(255)
+#  ds_attachment_file_size       :integer
+#  ds_attachment_updated_at      :datetime
+#  category                      :string(255)
+#  ds_attachment_last_updated_at :datetime
 #
 
 
 # N.B. You MUST call "setup" after creating this object
 
 class DsModule < ActiveRecord::Base
-  attr_accessible :name, :version, :documentation, :example, :category, :files, :ds_attachment
+  attr_accessible :name, :version, :documentation, :example, :category, :files, :ds_attachment, :ds_attachment_last_updated_at
 
   has_many :module_files, :dependent => :destroy
 
@@ -41,6 +42,8 @@ class DsModule < ActiveRecord::Base
   validates_attachment_presence :ds_attachment
 
   validate :has_valid_example
+
+  validate :should_reload_attachment
   
   # I can't do this because parent must be saved before I 
   # save child objects
@@ -51,6 +54,16 @@ class DsModule < ActiveRecord::Base
   # this calls the methods that can only be calle after the object has been created
   def setup
     parse_attachment
+  end
+
+  def should_reload_attachment
+    if self.ds_attachment_last_updated_at != self.ds_attachment_updated_at
+      @reload_attachment = true
+    end
+
+    self.ds_attachment_last_updated_at = self.ds_attachment_updated_at
+    
+    return true
   end
 
   def has_valid_example
@@ -76,6 +89,10 @@ class DsModule < ActiveRecord::Base
       return false
     end
 
+    unless @reload_attachment
+      return true
+    end
+    
     new_dir = File.dirname(ds_attachment.path) + "/" + get_unique_directory
 
     # -j flag flattens zip so only the files get unzipped (not the dir structure)
