@@ -1,4 +1,4 @@
-<tr>
+<tr class="<%= ds_module.tag_list.collect { |t| "ds-module-tag-" + t }.join(" ") %>" >
   <td class="ds_module">
 	<span class="content" ><%= link_to ds_module.name, ds_module %></span>
 	<span class="version" >Version: <%= ds_module.version %></span>

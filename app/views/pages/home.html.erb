@@ -11,7 +11,7 @@
 	<h1 class="categories">Categories</h1>
 	<% Tag.all.each do |tag| %>
 	  <div class="category_link">
-		<%= link_to(tag.name, '#' + tag.name, :class => "category_link") %>
+		<%= link_to(tag.name, '#' + tag.name) %>
 	  </div>
 	<% end %>
 	</td>
