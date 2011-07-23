@@ -4,3 +4,4 @@ log/*.log
 tmp/
 webrat.log
 public/system/ds_attachments
+public/portfolio

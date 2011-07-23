@@ -108,9 +108,11 @@ describe UsersController do
         @users = [@user, second, third]
       end
 
+      # this has been acting very strange, failing when it shouldn't
       it "should be successful" do
         get :index
-        response.should be_success        
+        response.should be_success
+        #true
       end
 
       it "should have the right title" do
