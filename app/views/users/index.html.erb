@@ -1,10 +1,14 @@
 <h1>All users</h1>
 
-<ul class="users">
-	<% @users.each do |user| %>
-		<li>
-			<%= image_for(user, 30) %>
-			<%= link_to user.name, user %>
-		</li>
-	<% end %>
-</ul> 
+<table class="front"> 
+
+<tr>
+	<td class="sidebar round">
+	  <% User.all.each do |user| %>
+	  <%= render 'shared/user_info', :displayed_user => user %><br />
+	  <% end %>
+	</td>
+<tr>
+
+</table>
+

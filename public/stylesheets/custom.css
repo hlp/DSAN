@@ -227,6 +227,13 @@ footer nav {
 	float: none;
 }
 
+table.categories {
+	width: 100%;
+	padding: 1em;
+
+	margin-bottom: -10px;
+}
+
 /* User show page */
 
 table.profile {
@@ -303,6 +310,7 @@ ul.users {
 /* Module stuff */
 
 h1.ds_module {
+	font-size: 150%;
 	margin-bottom: 0.3em;
 }
 
