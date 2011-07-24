@@ -20,7 +20,7 @@ Factory.define :ds_module do |ds_module|
   ds_module.documentation "It works."
   ds_module.example "1 + 1 = 2"
   ds_module.files "bundle_tower_07.ds"
-  ds_module.category "Library"
+  ds_module.tag_list ["Library"]
   ds_module.ds_attachment File.new(Rails.root + 'spec/fixtures/scripts/hello.ds')
   ds_module.association :user
 end

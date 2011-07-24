@@ -31,7 +31,7 @@ describe DsModule do
       :documentation => "It works",
       :example => "1 + 1 = 2",
       :files => "bundle_tower_07.ds",
-      :category => "Library",
+      :tag_list => ["Library"],
       :ds_attachment => File.new(Rails.root + 'spec/fixtures/scripts/hello.ds')
     }
   end
@@ -101,17 +101,18 @@ describe DsModule do
       @user.ds_modules.build(@attr.merge(:example => " ")).should_not be_valid
     end
 
-    it "should reject long categories" do
-      @user.ds_modules.build(@attr.merge(:category => "a" * 250)).should_not be_valid
+    it "should accept a blank category on Examples" do
+      @user.ds_modules.build(@attr.merge(:example => "" , :tag_list => ["Example"])).should be_valid
     end
 
-    it "should accept a blank category on Examples" do
-      puts
-      @user.ds_modules.build(@attr.merge(:category => "Example")).should be_valid
-    end
+    # probably not needed as I have control over categories
+    it "should reject long categories" 
+      # @user.ds_modules.build(@attr.merge(:example => "123", :tag_list => ["a" * 250])).should_not be_valid
+    
+
 
     it "should require a nonblank category" do
-      @user.ds_modules.build(@attr.merge(:category => " ")).should_not be_valid
+      @user.ds_modules.build(@attr.merge(:tag_list => [])).should_not be_valid
     end
 
 

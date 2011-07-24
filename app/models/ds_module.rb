@@ -42,6 +42,8 @@ class DsModule < ActiveRecord::Base
   # category is now :tag_list
   #validates :category, :presence => true, :length => { :maximum => 200 }
 
+  validates :tag_list, :presence => true
+
   #validates :files, :presence => true
   validates_attachment_presence :ds_attachment
 
@@ -121,21 +123,15 @@ class DsModule < ActiveRecord::Base
   end
 
   def get_categories
-    categories = []
-    words = category.split(/,/)
-    words.each do |word|
-      categories.push(word.chomp)
-    end
-
-    return categories
+    self.tag_list
   end
 
   def is_example?
-    (category =~ /example/i) != nil
+    self.tag_list.find_index("Example") != nil
   end
 
   def is_library?
-    (category =~ /library/i) != nil
+    self.tag_list.find_index("Library") != nil
   end
 
   def get_images

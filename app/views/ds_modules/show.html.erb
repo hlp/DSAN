@@ -15,8 +15,10 @@
 <h1><%= link_to "Download", @ds_module.ds_attachment.url %></h1><br /><br />
 <h1>Description</h1>
 <%= sanitize(markdown(Sanitize.clean(@ds_module.documentation))) %><br />
+<% unless @ds_module.is_example? %>
 <h1>Example</h1>
 <%= coderay(@ds_module.example).html_safe %><br /><br />
+<% end %>
 <% if @ds_module.get_scripts.count > 0 %>
 	<h1>Code</h1>
     <% @ds_module.get_scripts.each do |script| %>
