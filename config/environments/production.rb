@@ -47,5 +47,14 @@ Dsan::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
+  ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.smtp_settings = {
+    :address => 'smtp.gmail.com',
+    :port => 587,
+    :domain => 'gmail.com',
+    :authentication => :plain,
+    :user_name => 'designscriptarchivenetwork@gmail.com',
+    :password => 'DesignScript'
+  }
   
 end
