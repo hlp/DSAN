@@ -24,6 +24,7 @@ class UsersController < ApplicationController
       sign_in @user
       flash[:success] = "Welcome to DSAN!"
       # Handle a successful save
+      Notifier.welcome_email(@user).deliver
       redirect_to @user
     else
       @title = "Sign up"

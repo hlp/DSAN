@@ -1,5 +1,8 @@
 Dsan::Application.routes.draw do
 
+  #get "password_reset/new"
+  #get "password_reset/create"
+
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
   resources :ds_modules
@@ -15,6 +18,9 @@ Dsan::Application.routes.draw do
   match '/contact', :to => 'pages#contact'
   match '/about', :to => 'pages#about'
   match '/help', :to => 'pages#help'
+
+  match '/reset_password', :to => 'password_reset#new'
+  match '/reset_password_create', :to => 'password_reset#create'
 
   root :to => 'pages#home'
 
