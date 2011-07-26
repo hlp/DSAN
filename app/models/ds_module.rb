@@ -102,7 +102,7 @@ class DsModule < ActiveRecord::Base
     new_dir = File.dirname(ds_attachment.path) + "/" + get_unique_directory
 
     # -j flag flattens zip so only the files get unzipped (not the dir structure)
-    `unzip -j #{ds_attachment.path} -d #{new_dir}`
+    `unzip -j '#{ds_attachment.path}' -d #{new_dir}`
 
     files = `ls #{new_dir}`.chomp().split("\n")
 
