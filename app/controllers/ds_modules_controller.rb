@@ -1,7 +1,7 @@
 
 class DsModulesController < ApplicationController
   before_filter :authenticate
-  before_filter :correct_user, :only => [:edit, :update]
+  before_filter :correct_user, :only => [:edit, :update, :destroy]
 
   def index
     @title = "All modules"
@@ -46,6 +46,9 @@ class DsModulesController < ApplicationController
   end
 
   def destroy
+    DsModule.find(params[:id]).destroy
+    flash[:success] = "Module deleted."
+    redirect_to root_path
   end
 
   private 

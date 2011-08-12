@@ -31,7 +31,7 @@ class ModuleFile < ActiveRecord::Base
   end
 
   def get_file_type
-    case File.extname(path)
+    case File.extname(path).downcase
       when ".ds" then return "script"
 
       when ".jpg" then return "image"
