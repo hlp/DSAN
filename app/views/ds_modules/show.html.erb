@@ -3,7 +3,7 @@
 <table>
 <tr><td><h1 class="module_name"><%= @ds_module.name %></h1></td>
 <% if @ds_module.user == current_user %>
-<td><em><%= link_to "edit", edit_ds_module_path(@ds_module) %> | <%= link_to "delete", 
+<td class="module_modify_controls"><em><%= link_to "edit", edit_ds_module_path(@ds_module) %> | <%= link_to "delete",
     @ds_module, :method => :delete, 
     :confirm => "Are you sure you want to delete #{@ds_module.name}? This cannot be undone.", 
     :title => "Delete #{@ds_module.name}" %>

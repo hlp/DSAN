@@ -132,7 +132,9 @@ td.module_creator_name {
 	text-align: right;
 }
 
-
+td.module_modify_controls {
+	text-align: right;
+}
 
 /* Links */
 
