@@ -40,6 +40,8 @@ class User < ActiveRecord::Base
 
   before_save :encrypt_password
 
+  default_scope :order => 'users.name ASC'
+
   # return true if the user's password matches the submitted password
   # note that BCrypt casts the submitted_password into a 
   # BCrypt::Password object (it's not doing a string compare)
