@@ -88,6 +88,15 @@ class DsModule < ActiveRecord::Base
   end
 
   def parse_attachment
+    # check if the user just changed some text on the page and 
+    # didn't actually upload a new file
+    unless @reload_attachment
+      return true
+    end
+
+    # OK, they've uploaded a new file, delete the old ones
+    remove_attached_files
+
     if attachment_is_ds_file?
       module_files.create(:path => ds_attachment.path)
       return true
@@ -95,10 +104,6 @@ class DsModule < ActiveRecord::Base
 
     unless attachment_is_zip?
       return false
-    end
-
-    unless @reload_attachment
-      return true
     end
     
     new_dir = File.dirname(ds_attachment.path) + "/" + get_unique_directory
@@ -178,6 +183,12 @@ class DsModule < ActiveRecord::Base
     end
     
     return scripts_web_path
+  end
+
+  def remove_attached_files
+    module_files.each do |file|
+      file.destroy
+    end
   end
 
 
