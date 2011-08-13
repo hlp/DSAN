@@ -22,6 +22,8 @@
 
 # N.B. You MUST call "setup" after creating this object
 
+require 'set'
+
 class DsModule < ActiveRecord::Base
   attr_accessible :name, :version, :documentation, :example, :category, :files, :ds_attachment, :ds_attachment_last_updated_at, :tag_list
 
@@ -178,10 +180,53 @@ class DsModule < ActiveRecord::Base
     return scripts_web_path
   end
 
+
+  def self.search(search)
+    if search
+      results = []
+      # mit space search example
+      # (^mit\s+|\s+mit\s+|\s+mit$|^mit$)
+      space_reg = Regexp.new('(^' + search + '\s+|\s+' + 
+          search + '\s+|\s+' + search + '$|^' + search + '$)', Regexp::IGNORECASE)
+      subword_reg = Regexp.new(search);
+
+      search_using space_reg, results
+      search_using subword_reg, results
+
+      return results
+    else
+      find(:all)
+    end
+  end
+
   private
 
   def get_unique_directory
     ('a'..'z').to_a.shuffle[0...10].join
+  end
+
+  def self.search_using(regex, results)
+      # search for the string inside of words, but keep these results below the whole word results
+      DsModule.all.each do |dsm|
+        if regex.match(dsm.name) || regex.match(dsm.example) || regex.match(dsm.documentation) 
+          results.push(dsm) unless results.include?(dsm)
+        end
+
+        dsm.tag_list.each do |tag|
+          if regex.match(tag)
+            results.push(dsm) unless results.include?(dsm)
+          end
+        end
+          
+        dsm.get_scripts.each do |script|
+          IO.readlines(script.path).each do |line|
+            if regex.match(line)
+              results.push(dsm) unless results.include?(dsm)
+            end
+          end
+        end
+        
+      end # DSModule.each
   end
 
 end

@@ -5,7 +5,7 @@ class DsModulesController < ApplicationController
 
   def index
     @title = "All modules"
-    @ds_modules = DsModule.all
+    @ds_modules = DsModule.search(params[:search])
   end
 
   def show

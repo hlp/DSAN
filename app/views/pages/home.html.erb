@@ -12,13 +12,15 @@
 	  <h1 class="ds_module">Latest Modules</h1>
 		<%= render 'shared/all_ds_modules' %>
 	</td>
-	<td class="sidebar">
-	<h1 class="categories">Categories</h1>
-	<% Tag.all.each do |tag| %>
-	  <div class="category_link">
-		<%= link_to(tag.name, '#' + tag.name) %>
-	  </div>
-	<% end %>
+	<td class="sidebar" class="categories">
+		<h1 class="search_title">Search</h1>
+			<%= render 'shared/search_form' %>
+		<h1 class="categories">Categories</h1>
+		<% Tag.all.each do |tag| %>
+		  <div class="category_link">
+			<%= link_to(tag.name, '#' + tag.name) %>
+		  </div>
+		<% end %>
 	</td>
   </tr>
 </table>

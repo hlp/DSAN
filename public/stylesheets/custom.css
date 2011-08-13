@@ -237,16 +237,26 @@ footer nav {
 	float: none;
 }
 
+td.categories {
+	background: #fff;
+}
+
 table.categories {
 	width: 100%;
 	padding: 1em;
 
 	margin-bottom: -10px;
+	
 }
 
 h1.categories {
 	font-size: 120%;
 }
+
+h1.search_title {
+	font-size: 120%;
+}
+
 
 div.category_link {
 	margin-top: 13px;
@@ -270,7 +280,7 @@ td.sidebar {
 	width: 30%;
 	padding: 1em;
 	vertical-align: top;
-	/*background: #ffc;*/
+	background: #fff;
 }
 
 .profile img.gravatar {

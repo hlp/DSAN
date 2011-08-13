@@ -116,6 +116,7 @@ describe DsModule do
     end
 
 
-  end # validotions
+  end # validations
+
 
 end
