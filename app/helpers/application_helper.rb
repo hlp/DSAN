@@ -2,7 +2,7 @@ module ApplicationHelper
 
 # Return title on a per-page basis.
 def title
-  base_title = "DSAN: DesignScript Archive Network"
+  base_title = "The DesignScript Archive Network"
   if @title.nil?
     base_title
   else

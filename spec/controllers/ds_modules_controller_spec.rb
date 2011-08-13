@@ -72,4 +72,37 @@ describe DsModulesController do
 
   end # describe POST create
 
+  describe "DESTROY 'destroy'" do
+
+    before(:each) do
+      @ds_module = Factory(:ds_module)
+    end
+
+    describe "as a non-signed-in user" do
+
+      it "should deny access" do
+        delete :destroy, :id => @ds_module
+        response.should redirect_to(signin_path)
+      end
+
+    end # non-signed-in user
+
+    describe "as the correct signed in user" do
+      
+      before (:each) do
+        user = Factory(:user, :email => "will.delete@delete.com")
+        test_sign_in(user)
+        @deleted_module = Factory(:ds_module, :user => user)
+      end
+
+      it "should destroy the module" do
+        lambda do
+          delete :destroy, :id => @deleted_module
+        end.should change(DsModule, :count).by(-1)
+      end
+
+    end # as correct signed in user
+
+  end # DESTROY destroy
+
 end # DsModulesController
