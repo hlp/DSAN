@@ -2,6 +2,7 @@
   <td class="ds_module">
 	<span class="content" ><%= link_to ds_module.name, ds_module %></span>
 	<span class="version" >Version: <%= ds_module.version %></span>
+	<span class="description" ><%= ds_module.one_line_description %></span>
 	<span class="timestamp" >
 	  Uploaded <%= time_ago_in_words(ds_module.created_at) %> ago.
 	</span>

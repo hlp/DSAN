@@ -379,6 +379,13 @@ table.ds_modules span.version {
 	color: #000;
 }
 
+table.ds_modules span.description {
+	display: block;	
+	font-size: 85%;
+	color: #222;
+}
+
+
 table.ds_modules span.link {
 	display: block;
 	font-style: italic;

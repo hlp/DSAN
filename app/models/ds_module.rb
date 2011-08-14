@@ -185,6 +185,16 @@ class DsModule < ActiveRecord::Base
     return scripts_web_path
   end
 
+  def one_line_description
+    strip_markdown(documentation).split('.')[0] + '.'
+  end
+
+  def strip_markdown(text)
+    reg = Regexp.new('!?\[(\s|\w|\'|"|\.|\,|\-)*\]\((\s|\w|\/|:|\.|~|%|\-)*\)')
+    
+    text.dup.gsub(reg, "")
+  end
+
   def remove_attached_files
     module_files.each do |file|
       file.destroy
