@@ -16,6 +16,11 @@ body {
 	font-weight: normal;
 }
 
+
+a img {
+  border: none;
+}
+
 header {
 	padding-top: 20px;
 }
@@ -288,7 +293,6 @@ td.sidebar {
 	margin-bottom: -15px;
 }
 
-
 /* User index page */
 
 ul.users {
@@ -424,7 +428,109 @@ form.new_ds_module textarea {
 	margin-bottom: 0;
 }
 
+/* Masonry */
+/* ======= */
+
+#masonry-container {
+	background: #FFF;
+	padding: 5px;
+	margin-bottom: 20px;
+	border-radius: 5px;
+	clear: both;
+	-webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.box {
+	margin: 5px;
+	padding: 5px;
+	/* Sadly the box doesn't display correctly in IE */
+	background: #D8D5D2;
+	font-size: 11px;
+	line-height: 1.4em;
+	float: left;
+	-webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;	
+}
+
+.box h2 {
+	font-size: 14px;
+	font-weight: 200;
+}
+
+.box img {
+	/* IE doesn't like this
+
+	*/
+	display: block;
+	width: 100%;
+}
+
+.box a {
+	text-decoration: none;
+	border-bottom: none;
+}
+
+.col1 { width: 80px; }
+.col2 { width: 180px; }
+.col3 { width: 280px; }
+.col4 { width: 380px; }
+.col5 { width: 480px; }
+
+.col1 img { max-width: 80px; }
+.col2 img { max-width: 180px; }
+.col3 img { max-width: 280px; }
+.col4 img { max-width: 380px; }
+.col5 img { max-width: 480px; }
+
+/**** Gutters ****/
+
+.has-gutters .box {
+	margin: 5px 0;
+}
+
+.has-gutters .col1 { width: 90px; }
+.has-gutters .col2 { width: 230px; }
+.has-gutters .col3 { width: 370px; }
+.has-gutters .col4 { width: 550px; }
+
+/**** Transitions ****/
+
+.transitions-enabled.masonry,
+.transitions-enabled.masonry .masonry-brick {
+	-webkit-transition-duration: 0.7s;
+    -moz-transition-duration: 0.7s;
+    -o-transition-duration: 0.7s;
+    transition-duration: 0.7s;
+}
+
+.transitions-enabled.masonry {
+	-webkit-transition-property: height, width;
+    -moz-transition-property: height, width;
+    -o-transition-property: height, width;
+    transition-property: height, width;
+}
+
+.transitions-enabled.masonry  .masonry-brick {
+	-webkit-transition-property: left, right, top;
+    -moz-transition-property: left, right, top;
+    -o-transition-property: left, right, top;
+    transition-property: left, right, top;
+}
 
 
+/* disable transitions on container */
+.transitions-enabled.infinite-scroll.masonry {
+	-webkit-transition-property: none;
+    -moz-transition-property: none;
+    -o-transition-property: none;
+    transition-property: none;
+}
 
 
+/**** Clearfix ****/
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }

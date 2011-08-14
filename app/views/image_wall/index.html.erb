@@ -1,3 +1,28 @@
+
+ 
+<div id="masonry-container" class="clearfix">
+
 <% @images.each do |image| %>
-<p><%= image.to_s %> </p><br />
+<div class="box col3">
+<%= link_to image_tag(image[0]), ds_module_path(image[1])  %>
+</div>
 <% end %>
+
+</div> <!-- #masonry-container -->
+
+<%= javascript_include_tag "jquery.masonry.min" %>
+
+<script>
+$(function() {
+
+var $container = $('#masonry-container');
+
+$container.imagesLoaded( function(){
+  $container.masonry({
+    itemSelector : '.box'
+  });
+});
+
+});
+
+</script>

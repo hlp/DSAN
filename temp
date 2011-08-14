@@ -85,3 +85,15 @@ Tag.all.collect { |t| t.name },
 
 FORM SELECT options={ :selected => @user.role_ids }
 	<% @selected_categories = @ds_module.tag_list.collect {|t| t.name } %>
+
+
+
+
+var $container = $('#container');
+
+$container.imagesLoaded( function(){
+  $container.masonry({
+    itemSelector : '.box'
+  });
+});
+</script>

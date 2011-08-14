@@ -18,6 +18,8 @@ gem 'sanitize'
 
 gem 'acts_as_taggable_on_steroids'
 
+gem 'imagesize'
+
 group :development do
 	gem 'rspec-rails'
 	gem 'annotate'
