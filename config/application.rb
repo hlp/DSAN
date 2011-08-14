@@ -39,5 +39,7 @@ module Dsan
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+
+    Dir.glob("./lib/*.{rb}").each { |file| require file } # require each file from lib directory
   end
 end

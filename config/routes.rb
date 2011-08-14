@@ -1,5 +1,7 @@
 Dsan::Application.routes.draw do
 
+  #get "image_wall/index"
+
   #get "password_reset/new"
   #get "password_reset/create"
 
@@ -21,6 +23,8 @@ Dsan::Application.routes.draw do
 
   match '/reset_password', :to => 'password_reset#new'
   match '/reset_password_create', :to => 'password_reset#create'
+
+  match '/images', :to => 'image_wall#index'
 
   root :to => 'pages#home'
 

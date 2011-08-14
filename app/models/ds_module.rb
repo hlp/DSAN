@@ -157,7 +157,7 @@ class DsModule < ActiveRecord::Base
 
     images.each do |image|
       desc = image.base
-      path = image.path.gsub(Rails.root.to_s + "/public", "")
+      path = absolute_path_to_web_path(image.path)
       str += "\n![#{desc}](#{path})"
     end
 
