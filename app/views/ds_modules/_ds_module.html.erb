@@ -1,4 +1,18 @@
 <tr class="ds-module-wrapper-tag <%= ds_module.tag_list.collect { |t| "ds-module-tag-" + t }.join(" ") %>" >
+  <td class="ds_module_thumbnail" >
+	
+	<% ds_module.module_files.each do |file| %>
+		<% if file.is_image? %>
+			<% if file.is_width_max? %>
+				<%= image_tag file.web_path, :width => 125 %>
+			<% else %>
+				<%= image_tag file.web_path, :height => 75 %>
+			<% end %>
+			<% break %>
+		<% end %>
+	<% end %>
+	
+  </td>
   <td class="ds_module">
 	<span class="content" ><%= link_to ds_module.name, ds_module %></span>
 	<span class="version" >Version: <%= ds_module.version %></span>

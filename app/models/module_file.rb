@@ -64,4 +64,39 @@ class ModuleFile < ActiveRecord::Base
     return self.file_type == "other"
   end
 
+  def web_path
+    absolute_path_to_web_path(path)
+  end
+
+  def get_width
+    return nil unless is_image?
+
+    return get_image_dims(path)[0]
+  end
+
+  def get_height
+    return nil unless is_image?
+
+    return get_image_dims(path)[1]
+  end
+
+  def is_width_max?
+    dims = get_image_dims(path)
+    return dims[0] > dims[1]
+  end
+
+  def get_image_dims(image_path) 
+    return nil unless is_image?
+
+    # find the image's native dimensions
+    img_size = ImageSize.new(IO.read(image_path))
+
+    if (img_size.get_width == nil || img_size.get_height == nil)
+      return nil
+    end
+
+    return img_size.get_size
+  end
+
+
 end
