@@ -20,6 +20,8 @@ gem 'acts_as_taggable_on_steroids'
 
 gem 'imagesize'
 
+gem 'jquery-rails'
+
 group :development do
 	gem 'rspec-rails'
 	gem 'annotate'
