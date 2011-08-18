@@ -8,4 +8,5 @@ cp sensitive/test.sqlite3 db/
 
 # remove the old system dir
 mv system.tar.gz public/
+cd public
 tar -xzf system.tar.gz
