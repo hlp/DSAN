@@ -82,7 +82,23 @@ div.module_display code {
 	font-size: 75%;
 }
 
+div.reference {
+	line-height: 140%;
+	color: #667;
+}
 
+.reference h1 {
+	border-bottom: 1px solid #000;    
+	font-size: 150%;
+}
+
+.reference h2 {
+	font-size: 120%;
+}
+
+.reference span.reference-subject {
+	color: #000;
+}
 
 div.field, div.actions {
 	margin-bottom: 10px;
@@ -155,8 +171,6 @@ a:hover {
 	border-bottom: none;
     color: #000;
 }
-
-
 
 section {
 	margin-top: 1em;

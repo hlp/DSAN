@@ -1,0 +1,28 @@
+
+<h1><%= object["name"] %></h1>
+
+<% if object["parents"] %>
+<!-- multiple inheritante / interfaces not supported at the moment -->
+Parent : <%= object["parents"][0] %><br /><br />
+<% end %>
+
+<h2>Constructors</h2>
+<% ReferenceController.get_sorted_constructors(object).each do |ctor| %>
+<%= ctor.html_safe %></br />
+<% end %>
+<br />
+<h2>Members</h2>
+<% ReferenceController.get_sorted_members(object).each do |mem| %>
+<%= mem.html_safe %></br />
+<% end %>
+<br />
+<h2>Methods</h2>
+<% ReferenceController.get_sorted_methods(object).each do |meth| %>
+<%= meth.html_safe %></br />
+<% end %>
+
+
+
+
+
+

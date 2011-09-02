@@ -9,3 +9,4 @@ system.tar.gz
 public/system.tar.gz
 sensitive/
 sensitive.tar.gz
+public/reference/*

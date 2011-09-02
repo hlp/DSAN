@@ -1,5 +1,7 @@
 Dsan::Application.routes.draw do
 
+  get "reference/index"
+
   #get "image_wall/index"
 
   #get "password_reset/new"
