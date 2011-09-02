@@ -14,3 +14,4 @@ end
 
 `./parser #{ds_files.join(" ")} > ds_reference.json`
 
+`mv ds_reference.json ../public/reference/`
