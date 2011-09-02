@@ -29,8 +29,8 @@
 <% if @ds_module.get_scripts.count > 0 %>
 	<h1>Code</h1>
     <% @ds_module.get_scripts.each do |script| %>
-	    <h2><%= File.basename(script.path) %></h2>
-        <%= coderay(read_module(script.path)).html_safe %>
+	    <h2><%= File.basename(script.absolute_path) %></h2>
+        <%= coderay(read_module(script.absolute_path)).html_safe %>
     <% end %>
 <% end %>
 

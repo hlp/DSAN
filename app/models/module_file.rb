@@ -44,6 +44,10 @@ class ModuleFile < ActiveRecord::Base
     return "other"
   end
 
+  def absolute_path
+    Rails.public_path + "/" + path
+  end
+
   def base
     return File.basename(self.path)
   end
@@ -64,8 +68,9 @@ class ModuleFile < ActiveRecord::Base
     return self.file_type == "other"
   end
 
+  # TODO: determine if this is the right convention. Mischa?
   def web_path
-    absolute_path_to_web_path(path)
+    return "/" + path
   end
 
   def get_width
@@ -81,7 +86,7 @@ class ModuleFile < ActiveRecord::Base
   end
 
   def is_width_max?
-    dims = get_image_dims(path)
+    dims = get_image_dims(absolute_path)
     return dims[0] > dims[1]
   end
 

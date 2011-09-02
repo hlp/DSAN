@@ -4,9 +4,10 @@
 	<% ds_module.module_files.each do |file| %>
 		<% if file.is_image? %>
 			<% if file.is_width_max? %>
-				<%= image_tag file.web_path, :width => 125 %>
+      <!-- Note: image_tag only supports absolute paths or paths in the images directory -->
+          <%= image_tag file.web_path, :width=>125 %>
 			<% else %>
-				<%= image_tag file.web_path, :height => 75 %>
+		      <%= image_tag file.web_path, :height=>75 %>
 			<% end %>
 			<% break %>
 		<% end %>

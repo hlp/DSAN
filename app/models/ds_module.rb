@@ -98,7 +98,7 @@ class DsModule < ActiveRecord::Base
     remove_attached_files
 
     if attachment_is_ds_file?
-      module_files.create(:path => ds_attachment.path)
+      module_files.create(:path => absolute_path_to_web_path(ds_attachment.path))
       return true
     end
 
@@ -115,7 +115,7 @@ class DsModule < ActiveRecord::Base
 
     files.each do |file|
       full_path = new_dir + "/" + file      
-      self.module_files.create(:path => full_path)
+      self.module_files.create(:path => absolute_path_to_web_path(full_path))
     end
 
     return true

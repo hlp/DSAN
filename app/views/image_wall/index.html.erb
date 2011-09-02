@@ -4,7 +4,7 @@
 
 <% @images.each do |image| %>
 <div class="box col3">
-<%= link_to image_tag(image[0]), ds_module_path(image[1])  %>
+<%= link_to "<img src=\"#{image[0]}\">".html_safe, ds_module_path(image[1])  %>
 </div>
 <% end %>
 
