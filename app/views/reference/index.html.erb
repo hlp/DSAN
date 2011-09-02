@@ -1,0 +1,13 @@
+
+<div class="reference">
+
+<% ReferenceController.get_sorted_classes(@parsed_json["objects"]).each do |c| %>
+<%= render 'class_reference', :object => c %><br />
+<% end %>
+<br /><br />
+<h1>Global Functions</h1>
+<% ReferenceController.get_sorted_global_functions(@parsed_json["objects"]).each do |f| %>
+<%= f.html_safe %><br />
+<% end %>
+
+</div>
