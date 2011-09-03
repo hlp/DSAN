@@ -82,11 +82,21 @@ public class Parser : Object {
             }
         }
         while (true) {
-            if (accept(Token.QUESTION_MARK) || accept(Token.ASTERISK) || accept(Token.HASH) ||
-                accept(Token.RANGE))
+            if (accept(Token.QUESTION_MARK) || accept(Token.ASTERISK) || accept(Token.HASH))
                 continue;
+            if (accept(Token.RANGE)) {
+                if (t is Id)
+                    ((Id)t).name += "..";
+                else if (t is CompoundExpression)
+                    ((CompoundExpression)t).right += "..";
+                continue;
+            }
             if (accept(Token.LEFT_BRACKET)) {
                 accept(Token.RIGHT_BRACKET);
+                if (t is Id)
+                    ((Id)t).name += "[]";
+                else if (t is CompoundExpression)
+                    ((CompoundExpression)t).right += "[]";
                 continue;
             }
             break;
