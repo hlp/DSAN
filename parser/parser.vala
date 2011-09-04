@@ -85,18 +85,12 @@ public class Parser : Object {
             if (accept(Token.QUESTION_MARK) || accept(Token.ASTERISK) || accept(Token.HASH))
                 continue;
             if (accept(Token.RANGE)) {
-                if (t is Id)
-                    ((Id)t).name += "..";
-                else if (t is CompoundExpression)
-                    ((CompoundExpression)t).right += "..";
+                Expression.append_to_name(ref t, "..");
                 continue;
             }
             if (accept(Token.LEFT_BRACKET)) {
                 accept(Token.RIGHT_BRACKET);
-                if (t is Id)
-                    ((Id)t).name += "[]";
-                else if (t is CompoundExpression)
-                    ((CompoundExpression)t).right += "[]";
+                Expression.append_to_name(ref t, "[]");
                 continue;
             }
             break;

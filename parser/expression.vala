@@ -8,6 +8,13 @@ namespace Valencia {
 
 public abstract class Expression : Object {
     public abstract string to_string();
+
+    public static void append_to_name(ref Expression exp, string str) {
+        if (exp is Id)
+            ((Id)exp).name += str;
+        else if (exp is CompoundExpression)
+            ((CompoundExpression)exp).right += str;
+    }
 }
 
 public class Id : Expression {
