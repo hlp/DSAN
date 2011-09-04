@@ -8,7 +8,7 @@ Parent : <%= object["parents"][0] %><br /><br />
 
 <h2>Constructors</h2>
 <% ReferenceController.get_sorted_constructors(object).each do |ctor| %>
-<%= ctor.html_safe %></br />
+    <%= ctor.html_safe %></br />
 <% end %>
 <br />
 <h2>Members</h2>
@@ -20,9 +20,3 @@ Parent : <%= object["parents"][0] %><br /><br />
 <% ReferenceController.get_sorted_methods(object).each do |meth| %>
 <%= meth.html_safe %></br />
 <% end %>
-
-
-
-
-
-

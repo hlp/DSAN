@@ -37,10 +37,10 @@ class ReferenceController < ApplicationController
     object["members"].each do |mem|
       if mem["type"].to_s == "constructor"
         meth = mem
-		unless meth["name"]
+        unless meth["name"]
           meth["name"] = object["name"]
-		end
-		ctors.push(ReferenceController.create_method_string(meth))
+        end
+        ctors.push(ReferenceController.create_method_string(meth))
       end
     end
 
@@ -70,11 +70,15 @@ class ReferenceController < ApplicationController
     mems = []
     object["members"].each do |mem|
       if mem["type"].to_s == "variable"
-		mems.push(ReferenceController.create_var_string(mem))
+        mems.push(ReferenceController.create_var_string(mem))
       end
     end
 
     return mems
+  end
+
+  def self.get_sorted_members(object)
+    return get_members(object).sort
   end
 
   # Note: if two classes have the same name shit will break
@@ -99,10 +103,6 @@ class ReferenceController < ApplicationController
     end
 
     return classes
-  end
-
-  def self.get_sorted_members(object)
-    return get_members(object).sort
   end
 
   def self.get_global_functions(objects)

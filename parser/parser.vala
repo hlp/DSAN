@@ -431,6 +431,9 @@ public class Parser : Object {
     }
 
     Node? parse_member(Class? enclosing_class) {
+        if (accept(Token.PRIVATE))
+            return null;
+
         skip_attributes();
         skip_modifiers();
         Token t = peek_token();
@@ -542,10 +545,14 @@ public class Parser : Object {
                 if (c == null)
                     continue;
                     
+                found_constructor = true;
+                break;
+                /* Yes, named constructors count as constructors too...
                 if (c.name == null) {
                     found_constructor = true;
                     break;
                 }
+                */
             }
 
             if (!found_constructor) {
