@@ -1,12 +1,18 @@
 
 class ReferenceController < ApplicationController
+  before_filter :authenticate
+
   @@subject_start = "<span class=\"reference-subject\">"
   @@subject_end = "</span>"
+
+  def self.create_var_link(var)
+    return "<a href=\"##{var}\">#{var}</a>"
+  end
 
   def self.create_var_string(var)
     str = @@subject_start + var["name"] + @@subject_end
     if var["isa"]
-      str += " : " + var["isa"]
+      str += " : " + create_var_link(var["isa"])
     end
     return str
   end
@@ -14,7 +20,7 @@ class ReferenceController < ApplicationController
   def self.create_method_string(object)
     str = @@subject_start + object["name"] + @@subject_end
     if object["returns"]
-      str += " : " + object["returns"]
+      str += " : " + create_var_link(object["returns"])
     end
     str += " ( "
 

@@ -1,9 +1,9 @@
 
-<h1><%= object["name"] %></h1>
+<a name="<%= object["name"] %>"><h1><%= object["name"] %></h1></a>
 
 <% if object["parents"] %>
 <!-- multiple inheritante / interfaces not supported at the moment -->
-Parent : <%= object["parents"][0] %><br /><br />
+Parent : <%= ReferenceController.create_var_link(object["parents"][0]).html_safe %><br /><br />
 <% end %>
 
 <h2>Constructors</h2>

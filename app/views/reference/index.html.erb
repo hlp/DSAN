@@ -2,6 +2,11 @@
 <div class="reference">
 
 <% ReferenceController.get_sorted_classes(@parsed_json["objects"]).each do |c| %>
+<%= ReferenceController.create_var_link(c["name"]).html_safe %><br />
+<% end %>
+<br /><br />
+
+<% ReferenceController.get_sorted_classes(@parsed_json["objects"]).each do |c| %>
 <%= render 'class_reference', :object => c %><br />
 <% end %>
 <br /><br />
