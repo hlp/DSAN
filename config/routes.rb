@@ -1,5 +1,7 @@
 Dsan::Application.routes.draw do
 
+  get "status/index"
+
   #get "reference/index"
 
   #get "image_wall/index"
@@ -29,6 +31,9 @@ Dsan::Application.routes.draw do
   match '/images', :to => 'image_wall#index'
 
   match '/reference', :to => 'reference#index'
+
+  match '/status', :to => 'status#index'
+
 
   root :to => 'pages#home'
 

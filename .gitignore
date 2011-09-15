@@ -10,3 +10,4 @@ public/system.tar.gz
 sensitive/
 sensitive.tar.gz
 public/reference/*
+public/tests
