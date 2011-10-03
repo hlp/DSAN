@@ -4,7 +4,7 @@
 	<ul>
 	  	<li><%= link_to "Home", root_path %></li>
 	  <% if signed_in? %>
-	  	<li><%= link_to "Reference", '/reference' %></li>
+	  	<%# <li><%= link_to "Reference", '/reference' %> <%# </li> %>
 	  <% end %>
 	  	<li><%= link_to "Images", '/images' %></li>
 	  <% if signed_in? %>

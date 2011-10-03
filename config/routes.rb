@@ -30,7 +30,7 @@ Dsan::Application.routes.draw do
 
   match '/images', :to => 'image_wall#index'
 
-  match '/reference', :to => 'reference#index'
+  match '/reference_top_secret', :to => 'reference#index'
 
   match '/status', :to => 'status#index'
 
