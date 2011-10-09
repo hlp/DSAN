@@ -69,8 +69,10 @@ class ModuleFile < ActiveRecord::Base
   end
 
   # TODO: determine if this is the right convention. Mischa?
+  # TODO: fix this hack
   def web_path
-    return "/" + path
+    # 47 char is "/"
+    return path[0] == 47 ? path : "/" + path
   end
 
   def get_width
