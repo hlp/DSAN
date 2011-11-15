@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   end
 
   def self.authenticate(email, submitted_password)
-    user = find_by_email(email)
+    user = User.find_by_email_insensitive(email)
     return nil if user.nil?
     return user if user.has_password?(submitted_password)
   end
@@ -87,11 +87,13 @@ class User < ActiveRecord::Base
 
  # assign them a random one and mail it to them, asking them to change it
   def self.forgot_password(user_email)
-    @user = User.find_by_email(user_email)
+    @user = User.find_by_email_insensitive(user_email)
+    return false unless @user
     random_password = Array.new(10).map { (65 + rand(58)).chr }.join
     @user.password = random_password
     @user.save!
     Notifier.password_change(@user, random_password).deliver
+    return true
   end
 
   def has_valid_code
@@ -104,6 +106,16 @@ class User < ActiveRecord::Base
 
     creation_key.destroy
     return true
+  end
+
+  def self.find_by_email_insensitive(em)
+    User.all.each do |u|
+      if u.email.downcase == em.downcase
+        return u
+      end
+    end
+
+    return nil
   end
 
 end

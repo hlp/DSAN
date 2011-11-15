@@ -5,8 +5,13 @@ class PasswordResetController < ApplicationController
 
   def create
     email = params[:password_reset][:email]
-    flash[:success] = "Reset email sent to #{email}";
-    User.forgot_password(email)
+
+    if User.forgot_password(email)
+      flash[:success] = "Reset email sent to #{email}"
+    else
+      flash[:error] = "Unable to reset password for #{email}. Please check that it is correct."
+    end
+
     redirect_to root_path
   end
 
